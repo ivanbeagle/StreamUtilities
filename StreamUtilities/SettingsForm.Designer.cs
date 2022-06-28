@@ -37,52 +37,56 @@
             this.sugg = new System.Windows.Forms.Label();
             this.txtKey = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtUsername = new System.Windows.Forms.TextBox();
-            this.txtToken = new System.Windows.Forms.TextBox();
             this.txtChannel = new System.Windows.Forms.TextBox();
+            this.txtToken = new System.Windows.Forms.TextBox();
+            this.txtUsername = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnOK
             // 
+            this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOK.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOK.ForeColor = System.Drawing.Color.White;
-            this.btnOK.Location = new System.Drawing.Point(315, 254);
+            this.btnOK.Location = new System.Drawing.Point(315, 320);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(99, 41);
-            this.btnOK.TabIndex = 8;
+            this.btnOK.TabIndex = 9;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = false;
             // 
             // btnDefault
             // 
+            this.btnDefault.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnDefault.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnDefault.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDefault.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.btnDefault.Location = new System.Drawing.Point(12, 254);
+            this.btnDefault.Location = new System.Drawing.Point(12, 320);
             this.btnDefault.Name = "btnDefault";
             this.btnDefault.Size = new System.Drawing.Size(99, 41);
-            this.btnDefault.TabIndex = 6;
+            this.btnDefault.TabIndex = 7;
             this.btnDefault.Text = "Factory reset";
             this.btnDefault.UseVisualStyleBackColor = false;
             this.btnDefault.Click += new System.EventHandler(this.btnDefault_Click);
             // 
             // btnCancel
             // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.ForeColor = System.Drawing.Color.White;
-            this.btnCancel.Location = new System.Drawing.Point(210, 254);
+            this.btnCancel.Location = new System.Drawing.Point(210, 320);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(99, 41);
-            this.btnCancel.TabIndex = 7;
+            this.btnCancel.TabIndex = 8;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = false;
             // 
@@ -157,6 +161,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.linkLabel1);
             this.groupBox2.Controls.Add(this.txtChannel);
             this.groupBox2.Controls.Add(this.txtToken);
             this.groupBox2.Controls.Add(this.txtUsername);
@@ -167,43 +172,32 @@
             this.groupBox2.ForeColor = System.Drawing.Color.White;
             this.groupBox2.Location = new System.Drawing.Point(12, 118);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(402, 119);
+            this.groupBox2.Size = new System.Drawing.Size(402, 168);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Twitch settings";
             // 
-            // label2
+            // txtChannel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(6, 28);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(65, 15);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Username";
+            this.txtChannel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txtChannel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtChannel.ForeColor = System.Drawing.Color.White;
+            this.txtChannel.Location = new System.Drawing.Point(146, 132);
+            this.txtChannel.Name = "txtChannel";
+            this.txtChannel.Size = new System.Drawing.Size(250, 21);
+            this.txtChannel.TabIndex = 6;
+            this.txtChannel.Text = "...";
             // 
-            // label3
+            // txtToken
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(6, 58);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(78, 15);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Access token";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(6, 88);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(53, 15);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Channel";
+            this.txtToken.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txtToken.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtToken.ForeColor = System.Drawing.Color.White;
+            this.txtToken.Location = new System.Drawing.Point(146, 56);
+            this.txtToken.Name = "txtToken";
+            this.txtToken.Size = new System.Drawing.Size(250, 21);
+            this.txtToken.TabIndex = 4;
+            this.txtToken.Text = "...";
             // 
             // txtUsername
             // 
@@ -217,34 +211,60 @@
             this.txtUsername.Text = "...";
             this.txtUsername.TextChanged += new System.EventHandler(this.txtUsername_TextChanged);
             // 
-            // txtToken
+            // label4
             // 
-            this.txtToken.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.txtToken.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtToken.ForeColor = System.Drawing.Color.White;
-            this.txtToken.Location = new System.Drawing.Point(146, 56);
-            this.txtToken.Name = "txtToken";
-            this.txtToken.Size = new System.Drawing.Size(250, 21);
-            this.txtToken.TabIndex = 4;
-            this.txtToken.Text = "...";
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(6, 134);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(53, 15);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Channel";
             // 
-            // txtChannel
+            // label3
             // 
-            this.txtChannel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.txtChannel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtChannel.ForeColor = System.Drawing.Color.White;
-            this.txtChannel.Location = new System.Drawing.Point(146, 86);
-            this.txtChannel.Name = "txtChannel";
-            this.txtChannel.Size = new System.Drawing.Size(250, 21);
-            this.txtChannel.TabIndex = 5;
-            this.txtChannel.Text = "...";
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(6, 58);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(78, 15);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Access token";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(6, 28);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(65, 15);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Username";
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.BackColor = System.Drawing.Color.Black;
+            this.linkLabel1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.linkLabel1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.linkLabel1.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.linkLabel1.Location = new System.Drawing.Point(146, 81);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(198, 15);
+            this.linkLabel1.TabIndex = 5;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "How to get the Access Token?";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.ClientSize = new System.Drawing.Size(425, 311);
+            this.ClientSize = new System.Drawing.Size(425, 377);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnCancel);
@@ -281,5 +301,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }
