@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32519.379
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamUtilities", "StreamUtilities\StreamUtilities.csproj", "{A22D6306-D0E2-4D89-A6A0-1B3072D6957B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestStreamUtilities", "TestStreamUtilities\TestStreamUtilities.csproj", "{CA00BDEC-CB2D-46AA-8785-823EBA136867}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A22D6306-D0E2-4D89-A6A0-1B3072D6957B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A22D6306-D0E2-4D89-A6A0-1B3072D6957B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A22D6306-D0E2-4D89-A6A0-1B3072D6957B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A22D6306-D0E2-4D89-A6A0-1B3072D6957B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA00BDEC-CB2D-46AA-8785-823EBA136867}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA00BDEC-CB2D-46AA-8785-823EBA136867}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA00BDEC-CB2D-46AA-8785-823EBA136867}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA00BDEC-CB2D-46AA-8785-823EBA136867}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {26F193E7-DF50-4CCB-BE15-81BA6E84064F}
+	EndGlobalSection
+EndGlobal
