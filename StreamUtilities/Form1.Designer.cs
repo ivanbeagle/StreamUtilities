@@ -221,7 +221,7 @@
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Opacity = 0.98D;
-            this.Text = "Stream Utilities";
+            this.Text = "StreamUtilities";
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);

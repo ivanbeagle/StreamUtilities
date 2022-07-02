@@ -15,7 +15,7 @@ using System.Media;
 using user32 = Vanara.PInvoke.User32;
 using hwnd = Vanara.PInvoke.HWND;
 using cfg = StreamUtilities.StreamUtilitiesSettings;
-
+using Vanara.PInvoke;
 
 namespace StreamUtilities
 {
@@ -70,13 +70,23 @@ namespace StreamUtilities
 
             // first rec
             var instance = FakeWindow.Singleton;
+
             instance.HotKeyPressed += Instance_MagicHotKeyPressed;
             instance.CustomMessageReceived += Instance_CustomMessageReceived;
+            instance.ShellWindowActivated += Instance_ShellWindowActivated;
+        }
+
+        private void Instance_ShellWindowActivated(object sender, hwnd e)
+        {
+            PlaySound();
+
+            WinDecorator.Singleton.MoveOnWindow(e);
+            WinDecorator.Singleton.HideAfter(1300);
         }
 
         private void Instance_CustomMessageReceived(object sender, Message e)
         {
-            throw new NotImplementedException();
+            PlaySound();
         }
 
         private void Instance_MagicHotKeyPressed(object sender, Message e)
@@ -108,8 +118,8 @@ namespace StreamUtilities
                 Hide();
 
                 notifyIcon1.Visible = true;
-                notifyIcon1.BalloonTipTitle = "Stream Utilities works yet! :)";
-                notifyIcon1.BalloonTipText = "I'm working in background! (double click on the icon to restore)";
+                notifyIcon1.BalloonTipTitle = "StreamUtilities works in background now!";
+                notifyIcon1.BalloonTipText = "Double click on the icon to restore";
                 notifyIcon1.ShowBalloonTip(3000);
             }
         }
@@ -134,7 +144,20 @@ namespace StreamUtilities
             if(settings.ShowDialog() == DialogResult.OK)
             {
                 settings.PutUIToUserConfig();
+
+                bool needUpdateHotkey = false;
+                if (UserConfig.Singleton.Hotkey != cfg.Default.Hotkey)
+                    needUpdateHotkey = true;
+
                 UserConfig.Singleton.Save();
+
+                if (needUpdateHotkey)
+                    if(!FakeWindow.Singleton.UpdateHotkey(UserConfig.Singleton.Hotkey))
+                    {
+                        MessageBox.Show("Failed to apply new hotkey config, restart the application to see it work!", 
+                            "Failed register hotkey",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
 
                 // after save new config is available
                 PutUserSettings();
