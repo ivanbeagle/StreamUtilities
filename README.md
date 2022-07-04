@@ -10,3 +10,10 @@ I's similar to [See Through Windows](https://www.mobzystems.com/tools/seethrough
 - Allows you to connect Twitch account (special thanks to TwitchLib!); this key feature starts a bot that can listen events (chat, sub...) and activate previous tracked windows with a notification sound if necessary
         
 - StreamUtilities store all user settings in config file. The user's sensitive data will not be collected or sent! (stay safe!)
+
+
+### Compiling:
+
+Important note: Compile fails because TwitchLib is taken as external reference project. You need to download [TwitchLib](https://github.com/TwitchLib/TwitchLib/tree/rewrite-2022) (checkout this branch!)
+
+After, add manually the reference to TwitchLib and it works!
