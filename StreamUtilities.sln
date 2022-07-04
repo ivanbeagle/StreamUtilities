@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamUtilities", "StreamUt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestStreamUtilities", "TestStreamUtilities\TestStreamUtilities.csproj", "{CA00BDEC-CB2D-46AA-8785-823EBA136867}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwitchLib.Api", "..\TwitchLib-rewrite-2022\TwitchLib-rewrite-2022\src\TwitchLib.Api\TwitchLib.Api.csproj", "{B2B84298-2C2E-4BD6-8ADB-EF3DE1546F2F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwitchLib.Client", "..\TwitchLib-rewrite-2022\TwitchLib-rewrite-2022\src\TwitchLib.Client\TwitchLib.Client.csproj", "{8691DFA3-AC44-4A24-A7DD-FFA80273DC6B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{CA00BDEC-CB2D-46AA-8785-823EBA136867}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA00BDEC-CB2D-46AA-8785-823EBA136867}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA00BDEC-CB2D-46AA-8785-823EBA136867}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2B84298-2C2E-4BD6-8ADB-EF3DE1546F2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2B84298-2C2E-4BD6-8ADB-EF3DE1546F2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2B84298-2C2E-4BD6-8ADB-EF3DE1546F2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2B84298-2C2E-4BD6-8ADB-EF3DE1546F2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8691DFA3-AC44-4A24-A7DD-FFA80273DC6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8691DFA3-AC44-4A24-A7DD-FFA80273DC6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8691DFA3-AC44-4A24-A7DD-FFA80273DC6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8691DFA3-AC44-4A24-A7DD-FFA80273DC6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

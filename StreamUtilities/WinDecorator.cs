@@ -12,6 +12,7 @@ using user32 = Vanara.PInvoke.User32;
 using hwnd = Vanara.PInvoke.HWND;
 using System.Diagnostics;
 using Vanara.PInvoke;
+using Timer = System.Windows.Forms.Timer;
 
 namespace StreamUtilities
 {

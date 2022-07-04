@@ -82,5 +82,17 @@ namespace StreamUtilities {
                 this["WinOpacity"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool EnableTwitchNotifications {
+            get {
+                return ((bool)(this["EnableTwitchNotifications"]));
+            }
+            set {
+                this["EnableTwitchNotifications"] = value;
+            }
+        }
     }
 }

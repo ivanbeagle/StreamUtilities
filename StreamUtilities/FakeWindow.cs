@@ -40,6 +40,8 @@ namespace StreamUtilities
         /// Get custom message identifier
         /// </summary>
         public static uint CustomMessageId { get; private set; }
+
+        public bool AllowShellHookCapture { get; set; } = true;
         #endregion
 
         #region Events
@@ -118,57 +120,72 @@ namespace StreamUtilities
             // handle hooks
             if (m.Msg == _shellHook)
             {
-                int wp = m.WParam.ToInt32();
-                switch(wp)
+                if (AllowShellHookCapture)
                 {
-                    case HSHELL_WINDOWACTIVATED:
-                    case HSHELL_RUDEAPPACTIVATED:
-                    case 0xc029:
-                        var hwnd = user32.GetForegroundWindow();
+                    int wp = m.WParam.ToInt32();
+                    switch (wp)
+                    {
+                        case HSHELL_WINDOWACTIVATED:
+                        case HSHELL_RUDEAPPACTIVATED:
+                        case 0xc029:
+                            var hwnd = user32.GetForegroundWindow();
 
-                        if (hwnd == m.LParam)
-                        {
-                            var ptrhwnd = (IntPtr)hwnd;
                             // ignore windows of this process
-                            var pid = GetPid(ptrhwnd);
-                            if (pid == GetPid())
+                            var pid = GetPid(hwnd);
+                            var pidp = GetPid();
+                            if (pid == pidp)
                                 break;
 
-#if DEBUG
-                            Debug.WriteLine($"[FKWND] activated handle: {ptrhwnd} ({GetClass(ptrhwnd)} ; {GetCaption(ptrhwnd)})");
-#endif
-                            ShellWindowActivated?.Invoke(this, hwnd);
-                        }
-                        else
-                        {
-                            // what is this message? 0xc029
-                            var ptrhwnd = (IntPtr)hwnd;
-                            var caption = GetCaption(ptrhwnd);
-
-                            Debug.WriteLine($"[FKWND???] {ptrhwnd} ({GetClass(ptrhwnd)} ; {caption})");
-
-                            // if this "window" has a caption is good for me, but this code could be improved!
-
-                            if(!string.IsNullOrWhiteSpace(caption))
-                                ShellWindowActivated?.Invoke(this, hwnd);
-
-                            try
+                            if (hwnd == m.LParam)
                             {
-                                var dataGWL_HWNDPARENT = user32.GetWindowLongAuto(hwnd, user32.WindowLongFlags.GWL_HWNDPARENT);
-                                var dataGWL_EXSTYLE = user32.GetWindowLongAuto(hwnd, user32.WindowLongFlags.GWL_EXSTYLE);
-                                var dataGWL_STYLE = user32.GetWindowLongAuto(hwnd, user32.WindowLongFlags.GWL_STYLE);
+                                if(GetClass(hwnd).ToLower().Contains("streamutilities") || GetCaption(hwnd).ToLower().Contains("streamutilities"))
+                                {
+                                    Debug.WriteLine("[FKWND] Patch!");
+                                    break;
+                                }
 
-                                Debug.WriteLine($"GWL_HWNDPARENT = {dataGWL_HWNDPARENT} ; GWL_EXSTYLE = {dataGWL_EXSTYLE} ; GWL_STYLE = {dataGWL_STYLE}");
-                            } 
-                            catch { /* not a window */ }
-                        }
-                        break;
-
-                    default:
 #if DEBUG
-                        Debug.WriteLine(m);
+                                Debug.WriteLine($"[FKWND] activated handle: {(IntPtr)hwnd} ({GetClass(hwnd)} ; {GetCaption(hwnd)})");
 #endif
-                        break;
+                                ShellWindowActivated?.Invoke(this, hwnd);
+                            }
+                            else
+                            {
+                                if (GetClass(hwnd).ToLower().Contains("streamutilities") || GetCaption(hwnd).ToLower().Contains("streamutilities"))
+                                {
+                                    Debug.WriteLine("[FKWND] Patch!");
+                                    break;
+                                }
+
+                                // what is this message? 0xc029
+                                var caption = GetCaption(hwnd);
+
+                                Debug.WriteLine($"[FKWND???] {(IntPtr)hwnd} ({GetClass(hwnd)} ; {caption})");
+
+                                try
+                                {
+                                    var dataGWL_HWNDPARENT = user32.GetWindowLongAuto(hwnd, user32.WindowLongFlags.GWL_HWNDPARENT);
+                                    var dataGWL_EXSTYLE = user32.GetWindowLongAuto(hwnd, user32.WindowLongFlags.GWL_EXSTYLE);
+                                    var dataGWL_STYLE = user32.GetWindowLongAuto(hwnd, user32.WindowLongFlags.GWL_STYLE);
+
+                                    // if this "window" has a caption and parent window? is good for me, but this code could be improved!
+
+                                    if (dataGWL_HWNDPARENT != null && dataGWL_HWNDPARENT != IntPtr.Zero && !string.IsNullOrWhiteSpace(caption))
+                                        ShellWindowActivated?.Invoke(this, hwnd);
+
+
+                                    Debug.WriteLine($"GWL_HWNDPARENT = {dataGWL_HWNDPARENT} ; GWL_EXSTYLE = {dataGWL_EXSTYLE} ; GWL_STYLE = {dataGWL_STYLE}");
+                                }
+                                catch { /* not a window */ }
+                            }
+                            break;
+
+                        default:
+#if DEBUG
+                            Debug.WriteLine(m);
+#endif
+                            break;
+                    }
                 }
             }
 
@@ -176,24 +193,24 @@ namespace StreamUtilities
         }
 
 
-        private string GetClass(IntPtr wnd, int capacity = 200)
+        public static string GetClass(hwnd wnd, int capacity = 200)
         {
             var sb = new StringBuilder(capacity);
             user32.GetClassName(wnd, sb, capacity);
             return sb.ToString();
         }
-        private string GetCaption(IntPtr wnd, int capacity = 200)
+        public static string GetCaption(hwnd wnd, int capacity = 200)
         {
             var sb = new StringBuilder(capacity);
             user32.GetWindowText(wnd, sb, capacity);
             return sb.ToString();
         }
-        private uint GetPid(IntPtr wnd)
+        public static uint GetPid(hwnd wnd)
         {
             user32.GetWindowThreadProcessId(wnd, out uint pid);
             return pid;
         }
-        private int GetPid()
+        public static int GetPid()
         {
             return Process.GetCurrentProcess().Id;
         }

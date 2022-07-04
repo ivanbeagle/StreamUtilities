@@ -23,17 +23,25 @@ namespace StreamUtilities
     {
         #region Fields
         private SoundPlayer _player;
+        private Color _btnCaptureModeForeColor;
+        private CapturedWindow _currentWindow;
+        private List<CapturedWindow> _trackedWindows;
+        private TwitchBot _bot;
         #endregion
 
         #region Ctors
         public Form1()
         {
             InitializeComponent();
+            _btnCaptureModeForeColor = btnCaptureMode.ForeColor;
 
             PutUserSettings();
 
             string ver = GetVersion();
             this.Text += " " + ver;
+
+            _trackedWindows = new List<CapturedWindow>();
+            _bot = new TwitchBot();
         }
         #endregion
 
@@ -62,6 +70,19 @@ namespace StreamUtilities
             _player.Play();
         }
 
+        private void ActivateAllWindows()
+        {
+            _trackedWindows.ForEach(o =>
+            {
+            });
+        }
+
+        private void RestoreAllWindows()
+        {
+            _trackedWindows.ForEach(o =>
+            {
+            });
+        }
 
         #region Events
         private void Form1_Load(object sender, EventArgs e)
@@ -76,8 +97,76 @@ namespace StreamUtilities
             instance.ShellWindowActivated += Instance_ShellWindowActivated;
         }
 
+        private async void btnOpacity_Click(object sender, EventArgs e)
+        {
+            double opacity = Opacity;
+
+            btnOpacity.Text = "Wait!";
+            btnOpacity.Enabled = false;
+            Opacity = (double)trackBar1.Value / (double)100;
+
+            await Task.Delay(1500);
+            btnOpacity.Text = "Test opacity";
+            btnOpacity.Enabled = true;
+            Opacity = opacity;
+        }
+
+        private void btnCaptureMode_Click(object sender, EventArgs e)
+        {
+            FakeWindow.Singleton.AllowShellHookCapture = !FakeWindow.Singleton.AllowShellHookCapture;
+
+            if (FakeWindow.Singleton.AllowShellHookCapture)
+            {
+                btnCaptureMode.Text = "Switch capture mode OFF";
+                btnCaptureMode.ForeColor = _btnCaptureModeForeColor;
+            }
+            else
+            {
+                btnCaptureMode.Text = "Switch capture mode ON";
+                btnCaptureMode.ForeColor = Color.Red;
+            }
+        }
+
+        private void btnCaptureWin_Click(object sender, EventArgs e)
+        {
+            if (_currentWindow == null)
+                return;
+
+            if (_trackedWindows.Contains(_currentWindow) || _trackedWindows.Any(o => o.Handle == _currentWindow.Handle))
+            {
+                MessageBox.Show("This window is already tracked!", "Can't add the window", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                _trackedWindows.Add(_currentWindow);
+
+                var item = new ListViewItem(new[] { _currentWindow.Handle.ToString(), _currentWindow.Caption });
+                item.Tag = _currentWindow;
+
+                listView1.Items.Add(item);
+            }
+        }
+
+        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        {
+            Global.Opacity = trackBar1.Value;
+        }
+
+        private void btnRemoveWin_Click(object sender, EventArgs e)
+        {
+            var selected = listView1.SelectedItems.Count > 0 ? listView1.SelectedItems[0] : null;
+
+            if (selected == null)
+                return;
+
+            _trackedWindows.Remove(selected.Tag as CapturedWindow);
+            listView1.Items.Remove(selected);
+        }
+
         private void Instance_ShellWindowActivated(object sender, hwnd e)
         {
+            _currentWindow = new CapturedWindow(e);
+            btnCaptureWin.Text = "Capture: " + _currentWindow.Caption;
             PlaySound();
 
             WinDecorator.Singleton.MoveOnWindow(e);
@@ -96,12 +185,6 @@ namespace StreamUtilities
 
         private void Form1_Activated(object sender, EventArgs e)
         {
-            var hwnd = user32.GetActiveWindow();
-
-            StringBuilder sb = new StringBuilder();
-            user32.GetWindowText(hwnd, sb, 10000);
-
-            btnCaptureWin.Text = sb.ToString();
         }
 
         private void notifyIcon1_DoubleClick(object sender, EventArgs e)
@@ -168,21 +251,14 @@ namespace StreamUtilities
         {
             cfg.Default.WinOpacity = trackBar1.Value;
             cfg.Default.Save();
+
+            _bot.Disconnect();
         }
         #endregion
 
-        private async void btnOpacity_Click(object sender, EventArgs e)
+        private void btnConnectTwitch_Click(object sender, EventArgs e)
         {
-            double opacity = Opacity;
-
-            btnOpacity.Text = "Wait!";
-            btnOpacity.Enabled = false;
-            Opacity = (double)trackBar1.Value/(double)100;
-
-            await Task.Delay(1500);
-            btnOpacity.Text = "Test opacity";
-            btnOpacity.Enabled = true;
-            Opacity = opacity;
+            _bot.Connect();
         }
     }
 }
