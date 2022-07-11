@@ -104,7 +104,7 @@ namespace StreamUtilities
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("https://twitchtokengenerator.com/");
+            WinUtils.GoUrl("https://twitchtokengenerator.com/");
         }
     }
 }

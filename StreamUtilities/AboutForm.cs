@@ -20,22 +20,22 @@ namespace StreamUtilities
 
         private void linkLabel1_Click(object sender, EventArgs e)
         {
-            Process.Start("https://twitch.tv/beagleinteractive");
+            WinUtils.GoUrl("https://twitch.tv/beagleinteractive");
         }
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("https://github.com/dahall/vanara");
+            WinUtils.GoUrl("https://github.com/dahall/vanara");
         }
 
         private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("https://github.com/TwitchLib/TwitchLib");
+            WinUtils.GoUrl("https://github.com/TwitchLib/TwitchLib");
         }
 
         private void btnDonate_Click(object sender, EventArgs e)
         {
-            Process.Start("https://www.paypal.com/donate/?hosted_button_id=FM9FABR9Z9X8N");
+            WinUtils.GoUrl("https://www.paypal.com/donate/?hosted_button_id=FM9FABR9Z9X8N");
         }
     }
 }

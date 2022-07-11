@@ -33,7 +33,7 @@ namespace StreamUtilities
         {
             InitializeComponent();
 
-            _pen = new Pen(Brushes.Red, 10);
+            _pen = new Pen(Brushes.Yellow, 4);
 
             _timer = new Timer();
             _timer.Tick += _timer_Tick;
@@ -44,9 +44,9 @@ namespace StreamUtilities
         {
             user32.GetWindowRect(e, out RECT rect);
 
-            WinDecorator.Singleton.Size = rect.Size + new Size(5, 5);
-            WinDecorator.Singleton.Left = rect.Left - 5;
-            WinDecorator.Singleton.Top = rect.Top - 5;
+            WinDecorator.Singleton.Size = rect.Size + new Size(8, 12);
+            WinDecorator.Singleton.Left = rect.Left - 4;
+            WinDecorator.Singleton.Top = rect.Top - 8;
 
             WinDecorator.Singleton.Invalidate();
             WinDecorator.Singleton.Show();
