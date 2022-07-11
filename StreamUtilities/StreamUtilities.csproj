@@ -7,6 +7,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <UseWPF>False</UseWPF>
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,8 +31,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\TwitchLib-rewrite-2022\TwitchLib-rewrite-2022\src\TwitchLib.Api\TwitchLib.Api.csproj" />
-    <ProjectReference Include="..\..\TwitchLib-rewrite-2022\TwitchLib-rewrite-2022\src\TwitchLib.Client\TwitchLib.Client.csproj" />
+    <ProjectReference Include="..\..\..\TwitchLib-rewrite-2022\TwitchLib-rewrite-2022\src\TwitchLib.Api\TwitchLib.Api.csproj" />
+    <ProjectReference Include="..\..\..\TwitchLib-rewrite-2022\TwitchLib-rewrite-2022\src\TwitchLib.Client\TwitchLib.Client.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,9 +57,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
       <DependentUpon>StreamUtilitiesSettings.settings</DependentUpon>
-    </Compile>
-    <Compile Update="TopNotification.cs">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Update="WinDecorator.cs">
       <SubType>Form</SubType>

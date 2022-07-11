@@ -26,7 +26,9 @@ namespace StreamUtilities
         private Color _btnCaptureModeForeColor;
         private CapturedWindow _currentWindow;
         private List<CapturedWindow> _trackedWindows;
-        private TwitchBot _bot;
+        private TwitchBot _twitch;
+        private BlinkNotification _notifier;
+        private DateTime _lastTwitchNotification = DateTime.Now;
         #endregion
 
         #region Ctors
@@ -41,8 +43,13 @@ namespace StreamUtilities
             this.Text += " " + ver;
 
             _trackedWindows = new List<CapturedWindow>();
-            _bot = new TwitchBot();
+            _twitch = new TwitchBot();
+            _twitch.OnTwitchEvent += _twitch_OnTwitchEvent;
+
+            _notifier = new BlinkNotification();
+            _notifier.Show();
         }
+
         #endregion
 
         protected override void SetVisibleCore(bool value)
@@ -85,6 +92,23 @@ namespace StreamUtilities
         }
 
         #region Events
+        private void _twitch_OnTwitchEvent(object sender, TwitchBotEvent e)
+        {
+            if((DateTime.Now - _lastTwitchNotification).Seconds > 30)
+            {
+                PlaySound();
+            }
+
+            e.GetContent(out string owner, out string msg);
+
+            Task.Run(() =>
+            {
+                _notifier.AddNotify(e.Kind != TwichBotEventKind.Message, e.Kind.ToString(), owner, msg);
+            });
+
+            _lastTwitchNotification = DateTime.Now;
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             _player = new SoundPlayer(Resources.notify);
@@ -95,6 +119,11 @@ namespace StreamUtilities
             instance.HotKeyPressed += Instance_MagicHotKeyPressed;
             instance.CustomMessageReceived += Instance_CustomMessageReceived;
             instance.ShellWindowActivated += Instance_ShellWindowActivated;
+        }
+
+        private void btnConnectTwitch_Click(object sender, EventArgs e)
+        {
+            _twitch.Connect();
         }
 
         private async void btnOpacity_Click(object sender, EventArgs e)
@@ -180,7 +209,7 @@ namespace StreamUtilities
 
         private void Instance_MagicHotKeyPressed(object sender, Message e)
         {
-            PlaySound();
+            //PlaySound();
         }
 
         private void Form1_Activated(object sender, EventArgs e)
@@ -252,13 +281,8 @@ namespace StreamUtilities
             cfg.Default.WinOpacity = trackBar1.Value;
             cfg.Default.Save();
 
-            _bot.Disconnect();
+            _twitch.Disconnect();
         }
         #endregion
-
-        private void btnConnectTwitch_Click(object sender, EventArgs e)
-        {
-            _bot.Connect();
-        }
     }
 }

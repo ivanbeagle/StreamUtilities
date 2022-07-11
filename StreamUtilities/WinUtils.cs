@@ -22,5 +22,14 @@ namespace StreamUtilities
         {
             //Application.AddMessageFilter(new MyMessageFilter());
         }
+
+        internal static void GoUrl(string url)
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = url,
+                UseShellExecute = true
+            });
+        }
     }
 }

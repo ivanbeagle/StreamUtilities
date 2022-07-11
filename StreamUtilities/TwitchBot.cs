@@ -20,7 +20,8 @@ namespace StreamUtilities
         PrimePaidSub,
         Raid,
         ReSub,
-        UserJoin
+        UserJoin,
+        UserLeft
     }
 
     internal class TwitchBotEvent : EventArgs
@@ -36,6 +37,70 @@ namespace StreamUtilities
         }
     }
 
+    internal static class TwitchBotEventExtensions
+    {
+        public static void GetContent(this TwitchBotEvent e, out string owner, out string msg)
+        {
+            owner = null;
+            msg = null;
+
+            if(e.SourceEvent is OnMessageReceivedArgs message)
+            {
+                owner = message.ChatMessage.Username;
+                msg = message.ChatMessage.Message;
+                return;
+            }
+
+            else if(e.SourceEvent is OnWhisperReceivedArgs whisper)
+            {
+                owner = whisper.WhisperMessage.Username;
+                msg = whisper.WhisperMessage.Message;
+            }
+
+            else if(e.SourceEvent is OnNewSubscriberArgs newsub)
+            {
+                owner = newsub.Subscriber.DisplayName;
+                msg = newsub.Subscriber.ResubMessage + " " + newsub.Subscriber.SubscriptionPlanName;
+            }
+
+            else if (e.SourceEvent is OnReSubscriberArgs resub)
+            {
+                owner = resub.ReSubscriber.DisplayName;
+                msg = resub.ReSubscriber.ResubMessage + " " + resub.ReSubscriber.SubscriptionPlanName;
+            }
+
+            else if (e.SourceEvent is OnUserLeftArgs userleft)
+            {
+                owner = userleft.Username;
+                msg = "[BOT] has left! :(";
+            }
+
+            else if (e.SourceEvent is OnUserJoinedArgs userjoin)
+            {
+                owner = userjoin.Username;
+                msg = "[BOT] has joined!!! :)";
+            }
+
+            else if (e.SourceEvent is OnRaidNotificationArgs raid)
+            {
+                owner = raid.RaidNotification.DisplayName;
+                msg = raid.RaidNotification.MsgParamDisplayName;
+            }
+
+            else if (e.SourceEvent is OnPrimePaidSubscriberArgs prime)
+            {
+                owner = prime.PrimePaidSubscriber.DisplayName;
+                msg = prime.PrimePaidSubscriber.ResubMessage + " " + prime.PrimePaidSubscriber.SubscriptionPlanName;
+            }
+
+            else if (e.SourceEvent is OnGiftedSubscriptionArgs gift)
+            {
+                owner = gift.GiftedSubscription.DisplayName;
+                msg = gift.GiftedSubscription.MsgParamRecipientDisplayName + " " + gift.GiftedSubscription.MsgParamSubPlanName;
+            }
+        }
+    }
+
     internal class TwitchBot : IDisposable
     {
         #region Fields
@@ -44,7 +109,7 @@ namespace StreamUtilities
         #endregion
 
         #region Events
-        public EventHandler<TwitchBotEvent> OnTwitchEvent;
+        public event EventHandler<TwitchBotEvent> OnTwitchEvent;
         #endregion
 
         public async Task<Task> Connect()
@@ -76,6 +141,7 @@ namespace StreamUtilities
                 _client.OnRaidNotification += Client_OnRaidNotification;
                 _client.OnReSubscriber += Client_OnReSubscriber;
                 _client.OnUserJoined += Client_OnUserJoined;
+                _client.OnUserLeft += Client_OnUserLeft;
 
                 _client.Connect();
 
@@ -90,8 +156,11 @@ namespace StreamUtilities
 
         public void Dispose()
         {
-            _client.Disconnect();
-            _wsClient.Dispose();
+            if (_client != null && _client.IsConnected)
+            {
+                _client.Disconnect();
+                _wsClient.Dispose();
+            }
         }
 
         #region Events
@@ -108,41 +177,47 @@ namespace StreamUtilities
 
         private void Client_OnJoinedChannel(object sender, OnJoinedChannelArgs e)
         {
-            Debug.WriteLine("Hey guys! I am a bot connected via TwitchLib!");
-            _client.SendMessage(e.Channel, "Hey guys! I am a bot connected via TwitchLib!");
+            Debug.WriteLine("StreamUtilities creates the BOT connected via TwitchLib! :)");
+            _client.SendMessage(e.Channel, "StreamUtilities creates the BOT connected via TwitchLib! :)");
         }
 
         private void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
         {
-            if (e.ChatMessage.Message.Contains("badword"))
-                _client.TimeoutUser(e.ChatMessage.Channel, e.ChatMessage.Username, TimeSpan.FromMinutes(30), "Bad word! 30 minute timeout!");
+            //if (e.ChatMessage.Message.Contains("badword"))
+            //    _client.TimeoutUser(e.ChatMessage.Channel, e.ChatMessage.Username, TimeSpan.FromMinutes(30), "Bad word! 30 minute timeout!");
 
             OnTwitchEvent?.Invoke(this, new TwitchBotEvent(TwichBotEventKind.Message, e));
         }
 
         private void Client_OnWhisperReceived(object sender, OnWhisperReceivedArgs e)
         {
-            if (e.WhisperMessage.Username == "my_friend")
-                _client.SendWhisper(e.WhisperMessage.Username, "Hey! Whispers are so cool!!");
+            //if (e.WhisperMessage.Username == "my_friend")
+            //    _client.SendWhisper(e.WhisperMessage.Username, "Hey! Whispers are so cool!!");
 
             OnTwitchEvent?.Invoke(this, new TwitchBotEvent(TwichBotEventKind.Whisper, e));
         }
 
         private void Client_OnNewSubscriber(object sender, OnNewSubscriberArgs e)
         {
-            if (e.Subscriber.SubscriptionPlan == SubscriptionPlan.Prime)
-                _client.SendMessage(e.Channel, $"Welcome {e.Subscriber.DisplayName} to the substers! You just earned 500 points! So kind of you to use your Twitch Prime on this channel!");
-            else
-                _client.SendMessage(e.Channel, $"Welcome {e.Subscriber.DisplayName} to the substers! You just earned 500 points!");
+            //if (e.Subscriber.SubscriptionPlan == SubscriptionPlan.Prime)
+            //    _client.SendMessage(e.Channel, $"Welcome {e.Subscriber.DisplayName} to the substers! You just earned 500 points! So kind of you to use your Twitch Prime on this channel!");
+            //else
+            //    _client.SendMessage(e.Channel, $"Welcome {e.Subscriber.DisplayName} to the substers! You just earned 500 points!");
 
             OnTwitchEvent?.Invoke(this, new TwitchBotEvent(TwichBotEventKind.NewSub, e));
         }
 
         private void Client_OnUserJoined(object sender, OnUserJoinedArgs e)
         {
-            Debug.WriteLine($"User joined {e.Username}");
+            Debug.WriteLine($"User joined: {e.Username}");
 
+            _client.SendMessage(e.Channel, $"Welcome {e.Username}! :)");
             OnTwitchEvent?.Invoke(this, new TwitchBotEvent(TwichBotEventKind.UserJoin, e));
+        }
+
+        private void Client_OnUserLeft(object sender, OnUserLeftArgs e)
+        {
+            OnTwitchEvent?.Invoke(this, new TwitchBotEvent(TwichBotEventKind.UserLeft, e));
         }
 
         private void Client_OnReSubscriber(object sender, OnReSubscriberArgs e)
