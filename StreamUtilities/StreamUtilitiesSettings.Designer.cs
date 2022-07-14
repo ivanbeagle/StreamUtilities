@@ -37,7 +37,7 @@ namespace StreamUtilities {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("beagleinteractive")]
+        [global::System.Configuration.DefaultSettingValueAttribute("[username]")]
         public string TwitchUsername {
             get {
                 return ((string)(this["TwitchUsername"]));
@@ -49,7 +49,7 @@ namespace StreamUtilities {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("[access token]")]
         public string TwitchAccessToken {
             get {
                 return ((string)(this["TwitchAccessToken"]));
@@ -61,7 +61,7 @@ namespace StreamUtilities {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("beagleinteractive")]
+        [global::System.Configuration.DefaultSettingValueAttribute("[channel]")]
         public string TwitchChannel {
             get {
                 return ((string)(this["TwitchChannel"]));
@@ -92,6 +92,18 @@ namespace StreamUtilities {
             }
             set {
                 this["EnableTwitchNotifications"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool WinCaptureEnabled {
+            get {
+                return ((bool)(this["WinCaptureEnabled"]));
+            }
+            set {
+                this["WinCaptureEnabled"] = value;
             }
         }
     }

@@ -40,8 +40,11 @@ namespace StreamUtilities
         }
         #endregion
 
-        public void MoveOnWindow(hwnd e)
+        public void MoveOnWindow(hwnd e, Brush brush = null)
         {
+            if (brush != null)
+                _pen.Brush = brush;
+
             user32.GetWindowRect(e, out RECT rect);
 
             WinDecorator.Singleton.Size = rect.Size + new Size(8, 12);
@@ -66,6 +69,8 @@ namespace StreamUtilities
 
             e.Graphics.Clear(Color.Transparent);
             e.Graphics.DrawRectangle(_pen, rect);
+
+            _pen.Brush = Brushes.Yellow;
         }
 
         #region Events

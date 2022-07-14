@@ -59,7 +59,7 @@
             this.trackBar1.Minimum = 1;
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(492, 45);
-            this.trackBar1.TabIndex = 4;
+            this.trackBar1.TabIndex = 5;
             this.trackBar1.Value = 60;
             this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             this.trackBar1.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
@@ -82,7 +82,7 @@
             this.btnCaptureWin.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnCaptureWin.Name = "btnCaptureWin";
             this.btnCaptureWin.Size = new System.Drawing.Size(172, 47);
-            this.btnCaptureWin.TabIndex = 7;
+            this.btnCaptureWin.TabIndex = 8;
             this.btnCaptureWin.Text = "Capture this foreground window";
             this.btnCaptureWin.UseVisualStyleBackColor = false;
             this.btnCaptureWin.Click += new System.EventHandler(this.btnCaptureWin_Click);
@@ -124,7 +124,7 @@
             this.btnRemoveWin.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnRemoveWin.Name = "btnRemoveWin";
             this.btnRemoveWin.Size = new System.Drawing.Size(172, 27);
-            this.btnRemoveWin.TabIndex = 8;
+            this.btnRemoveWin.TabIndex = 9;
             this.btnRemoveWin.Text = "Remove selected window";
             this.btnRemoveWin.UseVisualStyleBackColor = false;
             this.btnRemoveWin.Click += new System.EventHandler(this.btnRemoveWin_Click);
@@ -228,7 +228,7 @@
             this.btnOpacity.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnOpacity.Name = "btnOpacity";
             this.btnOpacity.Size = new System.Drawing.Size(88, 27);
-            this.btnOpacity.TabIndex = 5;
+            this.btnOpacity.TabIndex = 4;
             this.btnOpacity.Text = "Test opacity";
             this.btnOpacity.UseVisualStyleBackColor = false;
             this.btnOpacity.Click += new System.EventHandler(this.btnOpacity_Click);
@@ -241,7 +241,7 @@
             this.btnCaptureMode.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnCaptureMode.Name = "btnCaptureMode";
             this.btnCaptureMode.Size = new System.Drawing.Size(172, 47);
-            this.btnCaptureMode.TabIndex = 9;
+            this.btnCaptureMode.TabIndex = 7;
             this.btnCaptureMode.Text = "Switch capture mode OFF";
             this.btnCaptureMode.UseVisualStyleBackColor = false;
             this.btnCaptureMode.Click += new System.EventHandler(this.btnCaptureMode_Click);

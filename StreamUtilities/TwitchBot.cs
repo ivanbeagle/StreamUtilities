@@ -11,6 +11,7 @@ using System.Diagnostics;
 
 namespace StreamUtilities
 {
+    #region Support
     internal enum TwichBotEventKind
     {
         Message,
@@ -100,20 +101,34 @@ namespace StreamUtilities
             }
         }
     }
+    #endregion
 
-    internal class TwitchBot : IDisposable
+    internal sealed class TwitchBot : IDisposable
     {
         #region Fields
-        TwitchClient _client;
-        WebSocketClient _wsClient;
+        private string _connectionErrorMessage = null;
+        private TwitchClient _client;
+        private WebSocketClient _websockClient;
         #endregion
 
         #region Events
         public event EventHandler<TwitchBotEvent> OnTwitchEvent;
         #endregion
 
+        #region Properties
+        public bool IsConnected => _client != null ? _client.IsConnected : false;
+
+        public bool HasFailed => _connectionErrorMessage != null;
+
+        public bool IsSuccessfullyConnected => IsConnected && !HasFailed;
+
+        public string ConnectionErrorMessage => _connectionErrorMessage;
+        #endregion
+
         public async Task<Task> Connect()
         {
+            _connectionErrorMessage = null;
+
             return Task.Run(() =>
             {
                 ConnectionCredentials credentials = new ConnectionCredentials(cfg.Default.TwitchUsername, cfg.Default.TwitchAccessToken);
@@ -124,11 +139,12 @@ namespace StreamUtilities
                     ThrottlingPeriod = TimeSpan.FromSeconds(30),
                 };
 
-                _wsClient = new WebSocketClient(clientOptions);
+                _websockClient = new WebSocketClient(clientOptions);
 
-                _client = new TwitchClient(_wsClient);
+                _client = new TwitchClient(_websockClient);
                 _client.Initialize(credentials, cfg.Default.TwitchChannel);
 
+                _client.OnConnectionError += Client_OnConnectionError;
                 _client.OnLog += Client_OnLog;
                 _client.OnJoinedChannel += Client_OnJoinedChannel;
                 _client.OnMessageReceived += Client_OnMessageReceived;
@@ -144,14 +160,13 @@ namespace StreamUtilities
                 _client.OnUserLeft += Client_OnUserLeft;
 
                 _client.Connect();
-
-                //while(true) { };
             });
         }
 
         public void Disconnect()
         {
             Dispose();
+            _connectionErrorMessage = null;
         }
 
         public void Dispose()
@@ -159,15 +174,29 @@ namespace StreamUtilities
             if (_client != null && _client.IsConnected)
             {
                 _client.Disconnect();
-                _wsClient.Dispose();
+                _websockClient.Dispose();
+                
+                _client = null;
+                _websockClient = null;
             }
         }
 
         #region Events
+        private void Client_OnConnectionError(object sender, OnConnectionErrorArgs e)
+        {
+            _connectionErrorMessage = e.Error.Message;
+        }
 
         private void Client_OnLog(object sender, OnLogArgs e)
         {
-            Debug.WriteLine($"{e.DateTime.ToString()}: {e.BotUsername} - {e.Data}");
+            string log = $"{e.DateTime.ToString()}: {e.BotUsername} - {e.Data}";
+            // raw way to check auth fails
+            if (e.Data.ToLower().Contains("authentication failed"))
+            {
+                _connectionErrorMessage = log;
+            }
+
+            Debug.WriteLine(log);
         }
 
         private void Client_OnConnected(object sender, OnConnectedArgs e)

@@ -6,18 +6,21 @@
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="TwitchUsername" Type="System.String" Scope="User">
-      <Value Profile="(Default)">beagleinteractive</Value>
+      <Value Profile="(Default)">[username]</Value>
     </Setting>
     <Setting Name="TwitchAccessToken" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">[access token]</Value>
     </Setting>
     <Setting Name="TwitchChannel" Type="System.String" Scope="User">
-      <Value Profile="(Default)">beagleinteractive</Value>
+      <Value Profile="(Default)">[channel]</Value>
     </Setting>
     <Setting Name="WinOpacity" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">60</Value>
     </Setting>
     <Setting Name="EnableTwitchNotifications" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="WinCaptureEnabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>

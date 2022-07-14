@@ -16,7 +16,7 @@ namespace StreamUtilities
         [STAThread]
         static void Main()
         {
-            using (var mutex = new Mutex(false, "saebamini.com SingletonApp"))
+            using (var mutex = new Mutex(false, "StreamUtilities-Mutex"))
             {
                 bool isAnotherInstanceOpen = !mutex.WaitOne(TimeSpan.Zero);
                 if (isAnotherInstanceOpen)

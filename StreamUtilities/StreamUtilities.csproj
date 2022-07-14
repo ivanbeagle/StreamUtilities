@@ -8,6 +8,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <UseWPF>False</UseWPF>
+    <Copyright>BeagleInteractive</Copyright>
+    <PackageProjectUrl></PackageProjectUrl>
+    <PackageIcon>ssicon.ico</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/ivanbeagle/StreamUtilities/</RepositoryUrl>
+    <PackageReleaseNotes>Prima release</PackageReleaseNotes>
+    <PackageLicenseFile>C:\Users\ivpag\source\repos\ivanbeagle\StreamUtilities\LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,6 +25,13 @@
   <ItemGroup>
     <Content Include="Resources\notify.wav" />
     <Content Include="Resources\twitch_small.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -71,6 +85,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Resources\ssicon.ico">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Update="StreamUtilitiesSettings.settings">
       <LastGenOutput>StreamUtilitiesSettings.Designer.cs</LastGenOutput>
       <Generator>PublicSettingsSingleFileGenerator</Generator>

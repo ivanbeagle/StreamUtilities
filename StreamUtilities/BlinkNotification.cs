@@ -30,14 +30,15 @@ namespace StreamUtilities
             _labels = new List<BlinkLabel>();
 
             flowLayoutPanel1.MaximumSize = new Size(Screen.PrimaryScreen.Bounds.Width, 150);
-
+            
+            // TEST pourpose only!
             //timer1.Start();
         }
         #endregion
 
         public void AddNotify(bool special, string type, string owner, string msg) 
         {
-            var l = new BlinkLabel(special, type, owner, msg /*, _lastLabel != null ? _lastLabel.CalculatedDelay : 0*/);
+            var l = new BlinkLabel(special, type, owner, msg);
             l.WordsTimeReached += L_WordsTimeReached;
             l.FadeOutCompleted += L_FadeOutCompleted;
 
@@ -47,12 +48,15 @@ namespace StreamUtilities
             flowLayoutPanel1.Invoke(() =>
             {
                 flowLayoutPanel1.Controls.Add(l);
+
+                // with one label i can start events of scroll, no one blinklabel has to wait before this closes!
                 if (_labels.Count == 1)
                     l.ListenEvents();
             });
         }
 
         #region Events
+        #region TEST
         //private void timer1_Tick(object sender, EventArgs e)
         //{
         //    //timer1.Stop();
@@ -106,9 +110,11 @@ namespace StreamUtilities
 
         //    AddNotify(special, p, frase);
         //}
+        #endregion
 
         private void L_WordsTimeReached(object sender, EventArgs e)
         {
+            // at end of word count this label fade out!
             BlinkLabel l = sender as BlinkLabel;
             l.FadeOut();
         }
@@ -121,6 +127,7 @@ namespace StreamUtilities
                 flowLayoutPanel1.Controls.Remove(l);
                 _labels.Remove(l);
 
+                // just repeat scroll for the first label available in list
                 if (_labels.Count > 0)
                     _labels[0]?.ListenEvents();
             });
