@@ -46,7 +46,7 @@
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(185, 17);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(187, 17);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // type
@@ -65,7 +65,7 @@
             // owner
             // 
             this.owner.AutoSize = true;
-            this.owner.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.owner.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.owner.Font = new System.Drawing.Font("Segoe UI Black", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.owner.ForeColor = System.Drawing.Color.DarkGray;
             this.owner.Location = new System.Drawing.Point(46, 0);
@@ -78,15 +78,16 @@
             // message
             // 
             this.message.AutoSize = true;
-            this.message.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.message.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.message.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
+            this.message.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.message.ForeColor = System.Drawing.Color.White;
             this.message.Location = new System.Drawing.Point(106, 0);
-            this.message.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.message.Margin = new System.Windows.Forms.Padding(0, 0, 20, 0);
             this.message.Name = "message";
-            this.message.Size = new System.Drawing.Size(69, 17);
+            this.message.Size = new System.Drawing.Size(61, 15);
             this.message.TabIndex = 3;
             this.message.Text = "[Message]";
+            this.message.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // BlinkLabel
             // 
@@ -99,7 +100,7 @@
             this.ForeColor = System.Drawing.Color.White;
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "BlinkLabel";
-            this.Size = new System.Drawing.Size(185, 17);
+            this.Size = new System.Drawing.Size(187, 17);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);

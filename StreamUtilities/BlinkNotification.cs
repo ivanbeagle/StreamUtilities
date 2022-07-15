@@ -30,8 +30,9 @@ namespace StreamUtilities
             _labels = new List<BlinkLabel>();
 
             flowLayoutPanel1.MaximumSize = new Size(Screen.PrimaryScreen.Bounds.Width, 150);
-            
+
             // TEST pourpose only!
+            //timer1.Enabled = true;
             //timer1.Start();
         }
         #endregion
@@ -52,64 +53,67 @@ namespace StreamUtilities
                 // with one label i can start events of scroll, no one blinklabel has to wait before this closes!
                 if (_labels.Count == 1)
                     l.ListenEvents();
+
+                // in full screen app is necessary!
+                BringToFront();
             });
         }
 
         #region Events
         #region TEST
-        //private void timer1_Tick(object sender, EventArgs e)
-        //{
-        //    //timer1.Stop();
-        //    //timer1.Enabled = false;
-        //    if (DateTime.Now.Second % 2 == 0)
-        //    {
-        //        if (new Random((int)DateTime.Now.Ticks).Next(0, 10) > 5)
-        //            return;
-        //    }
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            //timer1.Stop();
+            //timer1.Enabled = false;
+            if (DateTime.Now.Second % 2 == 0)
+            {
+                if (new Random((int)DateTime.Now.Ticks).Next(0, 10) > 5)
+                    return;
+            }
 
-        //    var frases = new[]
-        //    {
-        //        "ciao!",
-        //        "sto morendo xD",
-        //        "lol",
-        //        "quando farai una live?",
-        //        "figa sta cosa",
-        //        "mi faresti un autografo? :)",
-        //        "secondo me dovresti cambiare strada, li è pieno di nemici! xD",
-        //        "ma ad Apex?",
-        //        "ci facciamo una partita dopo?",
-        //        "porteresti un gioco horror?",
-        //        "non sai giocare!",
-        //        "a quando la prossima?",
-        //        "ho un pò di sonno, ci vediamo",
-        //        "hai appena vinto un milione!!!",
-        //        "cosaaa???",
-        //        "è pieno di bug sto gioco",
-        //    };
+            var frases = new[]
+            {
+                "ciao!",
+                "sto morendo xD",
+                "lol",
+                "quando farai una live?",
+                "figa sta cosa",
+                "mi faresti un autografo? :)",
+                "secondo me dovresti cambiare strada, li è pieno di nemici! xD",
+                "ma ad Apex?",
+                "ci facciamo una partita dopo?",
+                "porteresti un gioco horror?",
+                "non sai giocare!",
+                "a quando la prossima?",
+                "ho un pò di sonno, ci vediamo",
+                "hai appena vinto un milione!!!",
+                "cosaaa???",
+                "è pieno di bug sto gioco",
+            };
 
-        //    var pg = new[]
-        //    {
-        //        "FraCristofaro",
-        //        "Skull88",
-        //        "Alice93",
-        //        "Kronos",
-        //        "Yoyo",
-        //        "__underscore__",
-        //        "Bot",
-        //        "Mag0g",
-        //        "Lenfisho",
-        //        "0xbabbe0",
-        //        "IlMitico!"
-        //    };
+            var pg = new[]
+            {
+                "FraCristofaro",
+                "Skull88",
+                "Alice93",
+                "Kronos",
+                "Yoyo",
+                "__underscore__",
+                "Bot",
+                "Mag0g",
+                "Lenfisho",
+                "0xbabbe0",
+                "IlMitico!"
+            };
 
-        //    Random r = new Random((int)DateTime.Now.Ticks);
-        //    var frase = frases[r.Next(frases.Length)];
-        //    var p = pg[r.Next(pg.Length)];
+            Random r = new Random((int)DateTime.Now.Ticks);
+            var frase = frases[r.Next(frases.Length)];
+            var p = pg[r.Next(pg.Length)];
 
-        //    bool special = r.Next(0, frase.Length) % 2 == 0;
+            bool special = r.Next(0, frase.Length) % 2 == 0;
 
-        //    AddNotify(special, p, frase);
-        //}
+            AddNotify(special, "[TEST]", p, frase);
+        }
         #endregion
 
         private void L_WordsTimeReached(object sender, EventArgs e)
@@ -118,6 +122,7 @@ namespace StreamUtilities
             BlinkLabel l = sender as BlinkLabel;
             l.FadeOut();
         }
+
         private void L_FadeOutCompleted(object sender, EventArgs e)
         {
             BlinkLabel l = sender as BlinkLabel;
