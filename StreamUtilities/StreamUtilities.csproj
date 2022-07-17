@@ -15,6 +15,7 @@
     <RepositoryUrl>https://github.com/ivanbeagle/StreamUtilities/</RepositoryUrl>
     <PackageReleaseNotes>Prima release</PackageReleaseNotes>
     <PackageLicenseFile>C:\Users\ivpag\source\repos\ivanbeagle\StreamUtilities\LICENSE.txt</PackageLicenseFile>
+    <ApplicationIcon>Resources\ssicon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,6 +25,7 @@
 
   <ItemGroup>
     <Content Include="Resources\notify.wav" />
+    <Content Include="Resources\ssicon.ico" />
     <Content Include="Resources\twitch_small.png" />
   </ItemGroup>
 
