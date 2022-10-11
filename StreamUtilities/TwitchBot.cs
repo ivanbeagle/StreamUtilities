@@ -8,21 +8,25 @@ using TwitchLib.Client.Models;
 
 using cfg = StreamUtilities.StreamUtilitiesSettings;
 using System.Diagnostics;
+using System.Linq;
 
 namespace StreamUtilities
 {
     #region Support
     internal enum TwichBotEventKind
     {
+        UserJoin,
+        UserLeft,
         Message,
+
         Whisper,
         NewSub,
         GiftedSub,
         PrimePaidSub,
         Raid,
         ReSub,
-        UserJoin,
-        UserLeft
+        ExistingUsersDetected,
+        CommunitySub
     }
 
     internal class TwitchBotEvent : EventArgs
@@ -49,7 +53,6 @@ namespace StreamUtilities
             {
                 owner = message.ChatMessage.Username;
                 msg = message.ChatMessage.Message;
-                return;
             }
 
             else if(e.SourceEvent is OnWhisperReceivedArgs whisper)
@@ -98,6 +101,22 @@ namespace StreamUtilities
             {
                 owner = gift.GiftedSubscription.DisplayName;
                 msg = gift.GiftedSubscription.MsgParamRecipientDisplayName + " " + gift.GiftedSubscription.MsgParamSubPlanName;
+            }
+
+            else if (e.SourceEvent is OnExistingUsersDetectedArgs userdetect)
+            {
+                owner = userdetect.Channel;
+
+                string join = String.Join(',', userdetect.Users);
+                if (join.Length > 255)
+                    join = join.Substring(0, 255) + "...";
+                msg = join + $" ({userdetect.Users.Count})";
+            }
+
+            else if(e.SourceEvent is OnCommunitySubscriptionArgs community)
+            {
+                owner = community.GiftedSubscription.DisplayName;
+                msg = community.GiftedSubscription.MsgParamMultiMonthGiftDuration;
             }
         }
     }
@@ -159,9 +178,15 @@ namespace StreamUtilities
                 _client.OnUserJoined += Client_OnUserJoined;
                 _client.OnUserLeft += Client_OnUserLeft;
 
+                // added in 1.0.1
+                _client.OnCommunitySubscription += Client_OnCommunitySubscription;
+                _client.OnError += Client_OnError;
+                _client.OnExistingUsersDetected += Client_OnExistingUsersDetected;
+
                 _client.Connect();
             });
         }
+
 
         public void Disconnect()
         {
@@ -220,19 +245,12 @@ namespace StreamUtilities
 
         private void Client_OnWhisperReceived(object sender, OnWhisperReceivedArgs e)
         {
-            //if (e.WhisperMessage.Username == "my_friend")
-            //    _client.SendWhisper(e.WhisperMessage.Username, "Hey! Whispers are so cool!!");
 
             OnTwitchEvent?.Invoke(this, new TwitchBotEvent(TwichBotEventKind.Whisper, e));
         }
 
         private void Client_OnNewSubscriber(object sender, OnNewSubscriberArgs e)
         {
-            //if (e.Subscriber.SubscriptionPlan == SubscriptionPlan.Prime)
-            //    _client.SendMessage(e.Channel, $"Welcome {e.Subscriber.DisplayName} to the substers! You just earned 500 points! So kind of you to use your Twitch Prime on this channel!");
-            //else
-            //    _client.SendMessage(e.Channel, $"Welcome {e.Subscriber.DisplayName} to the substers! You just earned 500 points!");
-
             OnTwitchEvent?.Invoke(this, new TwitchBotEvent(TwichBotEventKind.NewSub, e));
         }
 
@@ -271,6 +289,25 @@ namespace StreamUtilities
         private void Client_OnGiftedSubscription(object sender, OnGiftedSubscriptionArgs e)
         {
             OnTwitchEvent?.Invoke(this, new TwitchBotEvent(TwichBotEventKind.GiftedSub, e));
+        }
+
+        private void Client_OnExistingUsersDetected(object sender, OnExistingUsersDetectedArgs e)
+        {
+            OnTwitchEvent?.Invoke(this, new TwitchBotEvent(TwichBotEventKind.ExistingUsersDetected, e));
+        }
+
+        private void Client_OnError(object sender, TwitchLib.Communication.Events.OnErrorEventArgs e)
+        {
+            Debug.WriteLine(e.Exception?.Message);
+            Console.WriteLine(e.Exception?.Message);
+
+            Debug.WriteLine(e.Exception?.StackTrace);
+            Console.WriteLine(e.Exception?.StackTrace);
+        }
+
+        private void Client_OnCommunitySubscription(object sender, OnCommunitySubscriptionArgs e)
+        {
+            OnTwitchEvent?.Invoke(this, new TwitchBotEvent(TwichBotEventKind.CommunitySub, e));
         }
         #endregion
     }

@@ -10,12 +10,16 @@
     <UseWPF>False</UseWPF>
     <Copyright>BeagleInteractive</Copyright>
     <PackageProjectUrl></PackageProjectUrl>
-    <PackageIcon>ssicon.ico</PackageIcon>
+    <PackageIcon>icon.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/ivanbeagle/StreamUtilities/</RepositoryUrl>
     <PackageReleaseNotes>Prima release</PackageReleaseNotes>
     <PackageLicenseFile>C:\Users\ivpag\source\repos\ivanbeagle\StreamUtilities\LICENSE.txt</PackageLicenseFile>
-    <ApplicationIcon>Resources\ssicon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\sicon.ico</ApplicationIcon>
+    <SignAssembly>False</SignAssembly>
+    <Description>Twitch support and overlays</Description>
+    <AssemblyVersion>1.0.1</AssemblyVersion>
+    <FileVersion>1.0.1</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,7 +29,7 @@
 
   <ItemGroup>
     <Content Include="Resources\notify.wav" />
-    <Content Include="Resources\ssicon.ico" />
+    <Content Include="Resources\sicon.ico" />
     <Content Include="Resources\twitch_small.png" />
   </ItemGroup>
 
@@ -87,7 +91,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Resources\ssicon.ico">
+    <None Update="Resources\icon.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>

@@ -115,8 +115,11 @@ namespace StreamUtilities
 
         private void _twitch_OnTwitchEvent(object sender, TwitchBotEvent e)
         {
-            // 3 min senza notifiche? alla prima notifica utile fa un suono
-            if((DateTime.Now - _lastTwitchNotification).Seconds > 60*3)
+            bool goodEvent = (int)e.Kind > (int)TwichBotEventKind.Message;
+            bool playSound = ((DateTime.Now - _lastTwitchNotification).Seconds > 120) || goodEvent;
+
+            // X min senza notifiche? alla prima notifica utile fa un suono
+            if (playSound)
             {
                 PlaySound();
             }
@@ -127,7 +130,7 @@ namespace StreamUtilities
             // necessario farlo come task!
             Task.Run(() =>
             {
-                _notifier.AddNotify(e.Kind != TwichBotEventKind.Message, e.Kind.ToString(), owner, msg);
+                _notifier.AddNotify(e.Kind == TwichBotEventKind.Message, e.Kind.ToString(), owner, msg);
             });
 
             // imposta l'ultima notifica

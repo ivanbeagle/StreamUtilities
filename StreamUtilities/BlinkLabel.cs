@@ -71,7 +71,7 @@ namespace StreamUtilities
 
             var words = msg.Split(' ');
             var t = words.Length * 400;
-            t += 1000;
+            t += 2000;
             CalculatedDelay = t;
 
             _timer = new();
