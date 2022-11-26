@@ -23,5 +23,8 @@
     <Setting Name="WinCaptureEnabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="TwitchIgnoreNames" Type="System.String" Scope="User">
+      <Value Profile="(Default)">commanderroot,aliceydra,0ax2,streamlabs,streamlabsbot,restream,restreambot,lurxx,saralna</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

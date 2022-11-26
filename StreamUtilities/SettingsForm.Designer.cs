@@ -45,6 +45,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.txtIgnore = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -56,11 +58,11 @@
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOK.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnOK.ForeColor = System.Drawing.Color.White;
-            this.btnOK.Location = new System.Drawing.Point(368, 369);
+            this.btnOK.Location = new System.Drawing.Point(368, 403);
             this.btnOK.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(115, 47);
-            this.btnOK.TabIndex = 9;
+            this.btnOK.TabIndex = 10;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = false;
             // 
@@ -70,11 +72,11 @@
             this.btnDefault.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnDefault.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnDefault.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.btnDefault.Location = new System.Drawing.Point(14, 369);
+            this.btnDefault.Location = new System.Drawing.Point(14, 403);
             this.btnDefault.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnDefault.Name = "btnDefault";
             this.btnDefault.Size = new System.Drawing.Size(115, 47);
-            this.btnDefault.TabIndex = 7;
+            this.btnDefault.TabIndex = 8;
             this.btnDefault.Text = "Factory reset";
             this.btnDefault.UseVisualStyleBackColor = false;
             this.btnDefault.Click += new System.EventHandler(this.btnDefault_Click);
@@ -86,11 +88,11 @@
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnCancel.ForeColor = System.Drawing.Color.White;
-            this.btnCancel.Location = new System.Drawing.Point(245, 369);
+            this.btnCancel.Location = new System.Drawing.Point(245, 403);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(115, 47);
-            this.btnCancel.TabIndex = 8;
+            this.btnCancel.TabIndex = 9;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = false;
             // 
@@ -171,6 +173,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.txtIgnore);
+            this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.linkLabel1);
             this.groupBox2.Controls.Add(this.txtChannel);
             this.groupBox2.Controls.Add(this.txtToken);
@@ -184,7 +188,7 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox2.Size = new System.Drawing.Size(469, 194);
+            this.groupBox2.Size = new System.Drawing.Size(469, 230);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Twitch settings";
@@ -210,7 +214,7 @@
             this.txtChannel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.txtChannel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtChannel.ForeColor = System.Drawing.Color.White;
-            this.txtChannel.Location = new System.Drawing.Point(170, 152);
+            this.txtChannel.Location = new System.Drawing.Point(170, 141);
             this.txtChannel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtChannel.Name = "txtChannel";
             this.txtChannel.Size = new System.Drawing.Size(291, 21);
@@ -247,7 +251,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(7, 155);
+            this.label4.Location = new System.Drawing.Point(7, 144);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(53, 15);
@@ -278,12 +282,36 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Username";
             // 
+            // txtIgnore
+            // 
+            this.txtIgnore.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txtIgnore.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtIgnore.ForeColor = System.Drawing.Color.White;
+            this.txtIgnore.Location = new System.Drawing.Point(170, 179);
+            this.txtIgnore.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtIgnore.Name = "txtIgnore";
+            this.txtIgnore.Size = new System.Drawing.Size(291, 21);
+            this.txtIgnore.TabIndex = 7;
+            this.txtIgnore.Text = "...";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label5.ForeColor = System.Drawing.Color.White;
+            this.label5.Location = new System.Drawing.Point(7, 181);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(78, 15);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Ignore users:";
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.ClientSize = new System.Drawing.Size(496, 435);
+            this.ClientSize = new System.Drawing.Size(496, 469);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnCancel);
@@ -323,5 +351,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private TextBox txtIgnore;
+        private Label label5;
     }
 }

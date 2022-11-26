@@ -12,7 +12,7 @@ namespace StreamUtilities {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.2.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.3.0.0")]
     public sealed partial class StreamUtilitiesSettings : global::System.Configuration.ApplicationSettingsBase {
         
         private static StreamUtilitiesSettings defaultInstance = ((StreamUtilitiesSettings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new StreamUtilitiesSettings())));
@@ -104,6 +104,19 @@ namespace StreamUtilities {
             }
             set {
                 this["WinCaptureEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("commanderroot,aliceydra,0ax2,streamlabs,streamlabsbot,restream,restreambot,lurxx," +
+            "saralna")]
+        public string TwitchIgnoreNames {
+            get {
+                return ((string)(this["TwitchIgnoreNames"]));
+            }
+            set {
+                this["TwitchIgnoreNames"] = value;
             }
         }
     }

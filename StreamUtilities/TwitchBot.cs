@@ -9,6 +9,7 @@ using TwitchLib.Client.Models;
 using cfg = StreamUtilities.StreamUtilitiesSettings;
 using System.Diagnostics;
 using System.Linq;
+using Microsoft.VisualBasic.Logging;
 
 namespace StreamUtilities
 {
@@ -76,13 +77,13 @@ namespace StreamUtilities
             else if (e.SourceEvent is OnUserLeftArgs userleft)
             {
                 owner = userleft.Username;
-                msg = "[BOT] has left! :(";
+                msg = "[BOT] è uscito/a! :(";
             }
 
             else if (e.SourceEvent is OnUserJoinedArgs userjoin)
             {
                 owner = userjoin.Username;
-                msg = "[BOT] has joined!!! :)";
+                msg = "[BOT] è entrato/a in live :D";
             }
 
             else if (e.SourceEvent is OnRaidNotificationArgs raid)
@@ -226,13 +227,16 @@ namespace StreamUtilities
 
         private void Client_OnConnected(object sender, OnConnectedArgs e)
         {
-            Debug.WriteLine($"Connected to {e.AutoJoinChannel}");
+            Console.WriteLine($"[StreamUtilities] connesso a {e.AutoJoinChannel}.");
+            Debug.WriteLine($"[StreamUtilities] connesso a {e.AutoJoinChannel}.");
         }
 
         private void Client_OnJoinedChannel(object sender, OnJoinedChannelArgs e)
         {
-            Debug.WriteLine("StreamUtilities creates the BOT connected via TwitchLib! :)");
-            _client.SendMessage(e.Channel, "StreamUtilities creates the BOT connected via TwitchLib! :)");
+            Console.WriteLine("[StreamUtilities] ha creato il BOT!");
+            Debug.WriteLine("[StreamUtilities] ha creato il BOT!");
+
+            _client.SendMessage(e.Channel, "[StreamUtilities] ha creato il BOT!");
         }
 
         private void Client_OnMessageReceived(object sender, OnMessageReceivedArgs e)
@@ -256,10 +260,20 @@ namespace StreamUtilities
 
         private void Client_OnUserJoined(object sender, OnUserJoinedArgs e)
         {
-            Debug.WriteLine($"User joined: {e.Username}");
+            if (StreamUtilitiesSettings.Default.TwitchIgnoreNames.Contains(e.Username))
+                return;
 
-            _client.SendMessage(e.Channel, $"Welcome {e.Username}! :)");
+            Console.WriteLine($"[BOT] {e.Username} è entrato/a in live!");
+            Debug.WriteLine($"[BOT] {e.Username} è entrato/a in live!");
+
+            _client.SendMessage(e.Channel, $"[BOT] Benvenuto/a @{e.Username}! :)");
             OnTwitchEvent?.Invoke(this, new TwitchBotEvent(TwichBotEventKind.UserJoin, e));
+
+            Task.Run(async () =>
+            {
+                await Task.Delay(15000);
+                _client.SendMessage(e.Channel, "[BOT] Reminder: digita !rules per le regole della chat e se ancora non lo hai fatto... seguimi! :)");
+            });
         }
 
         private void Client_OnUserLeft(object sender, OnUserLeftArgs e)

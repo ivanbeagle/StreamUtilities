@@ -21,6 +21,7 @@ namespace StreamUtilities
 
         public string TwitchChannel { get; set; }
 
+        public string TwitchIgnoreNames { get; set; }
 
         public static UserConfig Singleton => _singleton ?? (_singleton = new UserConfig());
         #endregion
@@ -35,6 +36,7 @@ namespace StreamUtilities
             TwitchUsername = "beagleinteractive";
             TwitchAccessToken = "[access_token]";
             TwitchChannel = TwitchUsername;
+            TwitchIgnoreNames = "commanderroot,aliceydra,0ax2,streamlabs,streamlabsbot,restream,restreambot,lurxx,saralna";
         }
 
         public void Save()
@@ -44,6 +46,7 @@ namespace StreamUtilities
             cfg.TwitchUsername = TwitchUsername;
             cfg.TwitchAccessToken = TwitchAccessToken;
             cfg.TwitchChannel = TwitchChannel;
+            cfg.TwitchIgnoreNames = TwitchIgnoreNames;
 
             cfg.Save();
         }
@@ -55,6 +58,7 @@ namespace StreamUtilities
             TwitchUsername = cfg.TwitchUsername;
             TwitchAccessToken = cfg.TwitchAccessToken;
             TwitchChannel = cfg.TwitchChannel;
+            TwitchIgnoreNames = cfg.TwitchIgnoreNames;
         }
     }
 }

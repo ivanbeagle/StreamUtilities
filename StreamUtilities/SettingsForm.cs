@@ -37,6 +37,7 @@ namespace StreamUtilities
             txtUsername.Text = cfg.TwitchUsername;
             txtToken.Text = cfg.TwitchAccessToken;
             txtChannel.Text = cfg.TwitchChannel;
+            txtIgnore.Text = cfg.TwitchIgnoreNames;
         }
 
         public void PutUIToUserConfig()
@@ -47,6 +48,7 @@ namespace StreamUtilities
             cfg.TwitchUsername = txtUsername.Text;
             cfg.TwitchAccessToken = txtToken.Text;
             cfg.TwitchChannel = txtChannel.Text;
+            cfg.TwitchIgnoreNames = txtIgnore.Text;
         }
 
         #region Events
