@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Vanara.Extensions;
+using Vanara.PInvoke;
 
 namespace StreamUtilities
 {
@@ -41,10 +44,16 @@ namespace StreamUtilities
 
         public void Save()
         {
+            var key = new List<byte>(TwitchUsername.GetBytes());
+            key.AddRange(new byte[] { 7, 12, 20, 18 });
+
+            var crypto = Crypt.Protect(key.ToArray(), TwitchAccessToken.GetBytes());
+            var base64 = Convert.ToBase64String(crypto);
+
             var cfg = StreamUtilitiesSettings.Default;
             cfg.Hotkey = Hotkey;
             cfg.TwitchUsername = TwitchUsername;
-            cfg.TwitchAccessToken = TwitchAccessToken;
+            cfg.TwitchAccessToken = base64;
             cfg.TwitchChannel = TwitchChannel;
             cfg.TwitchIgnoreNames = TwitchIgnoreNames;
 
@@ -54,9 +63,22 @@ namespace StreamUtilities
         public void LoadFromConfig()
         {
             var cfg = StreamUtilitiesSettings.Default;
+
+            try {
+                var key = new List<byte>(cfg.TwitchUsername.GetBytes());
+                key.AddRange(new byte[] { 7, 12, 20, 18 });
+
+                var crypto = Convert.FromBase64String(cfg.TwitchAccessToken);
+                var accesstoken = Crypt.Unprotect(key.ToArray(), crypto);
+                TwitchAccessToken = Encoding.Unicode.GetString(accesstoken);
+            }
+            catch
+            {
+                TwitchAccessToken = "[invalid]";
+            }
+
             Hotkey = cfg.Hotkey;
             TwitchUsername = cfg.TwitchUsername;
-            TwitchAccessToken = cfg.TwitchAccessToken;
             TwitchChannel = cfg.TwitchChannel;
             TwitchIgnoreNames = cfg.TwitchIgnoreNames;
         }

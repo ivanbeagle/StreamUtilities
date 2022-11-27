@@ -110,7 +110,7 @@ namespace StreamUtilities {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("commanderroot,aliceydra,0ax2,streamlabs,streamlabsbot,restream,restreambot,lurxx," +
-            "saralna")]
+            "saralna,ssgdcserver,violets_tv,la_kaylee,rogueg1rl")]
         public string TwitchIgnoreNames {
             get {
                 return ((string)(this["TwitchIgnoreNames"]));

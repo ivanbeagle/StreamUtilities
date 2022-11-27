@@ -143,6 +143,8 @@ namespace StreamUtilities
         public bool IsSuccessfullyConnected => IsConnected && !HasFailed;
 
         public string ConnectionErrorMessage => _connectionErrorMessage;
+
+        public static bool IsTriggeringReminder { get; private set; }
         #endregion
 
         public async Task<Task> Connect()
@@ -249,7 +251,6 @@ namespace StreamUtilities
 
         private void Client_OnWhisperReceived(object sender, OnWhisperReceivedArgs e)
         {
-
             OnTwitchEvent?.Invoke(this, new TwitchBotEvent(TwichBotEventKind.Whisper, e));
         }
 
@@ -271,13 +272,24 @@ namespace StreamUtilities
 
             Task.Run(async () =>
             {
-                await Task.Delay(15000);
-                _client.SendMessage(e.Channel, "[BOT] Reminder: digita !rules per le regole della chat e se ancora non lo hai fatto... seguimi! :)");
+                if (!TwitchBot.IsTriggeringReminder)
+                {
+                    TwitchBot.IsTriggeringReminder = true;
+                    await Task.Delay(30000);
+                    TwitchBot.IsTriggeringReminder = false;
+                    _client.SendMessage(e.Channel, "[BOT] Reminder: digita !rules per le regole della chat e se ancora non lo hai fatto... seguimi! :)");
+                }
             });
         }
 
         private void Client_OnUserLeft(object sender, OnUserLeftArgs e)
         {
+            if (StreamUtilitiesSettings.Default.TwitchIgnoreNames.Contains(e.Username))
+                return;
+
+            Console.WriteLine($"[BOT] {e.Username} è uscito/a.");
+            Debug.WriteLine($"[BOT] {e.Username} è uscito/a.");
+
             OnTwitchEvent?.Invoke(this, new TwitchBotEvent(TwichBotEventKind.UserLeft, e));
         }
 

@@ -18,8 +18,8 @@
     <ApplicationIcon>Resources\sicon.ico</ApplicationIcon>
     <SignAssembly>False</SignAssembly>
     <Description>Twitch support and overlays</Description>
-    <AssemblyVersion>1.0.2</AssemblyVersion>
-    <FileVersion>1.0.2</FileVersion>
+    <AssemblyVersion>1.0.3</AssemblyVersion>
+    <FileVersion>1.0.3</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

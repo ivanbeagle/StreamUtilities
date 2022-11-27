@@ -116,7 +116,7 @@ namespace StreamUtilities
         private void _twitch_OnTwitchEvent(object sender, TwitchBotEvent e)
         {
             bool goodEvent = (int)e.Kind > (int)TwichBotEventKind.Message;
-            bool playSound = ((DateTime.Now - _lastTwitchNotification).TotalSeconds > 120) || goodEvent;
+            bool playSound = ((DateTime.Now - _lastTwitchNotification).TotalSeconds > 120) && goodEvent;
 
             // X min senza notifiche? alla prima notifica utile fa un suono
             if (playSound)

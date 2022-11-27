@@ -24,7 +24,7 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="TwitchIgnoreNames" Type="System.String" Scope="User">
-      <Value Profile="(Default)">commanderroot,aliceydra,0ax2,streamlabs,streamlabsbot,restream,restreambot,lurxx,saralna</Value>
+      <Value Profile="(Default)">commanderroot,aliceydra,0ax2,streamlabs,streamlabsbot,restream,restreambot,lurxx,saralna,ssgdcserver,violets_tv,la_kaylee,rogueg1rl</Value>
     </Setting>
   </Settings>
 </SettingsFile>
