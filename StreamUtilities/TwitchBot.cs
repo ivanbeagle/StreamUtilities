@@ -10,6 +10,8 @@ using cfg = StreamUtilities.StreamUtilitiesSettings;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.VisualBasic.Logging;
+using System.Text;
+using Vanara.Extensions;
 
 namespace StreamUtilities
 {
@@ -153,7 +155,15 @@ namespace StreamUtilities
 
             return Task.Run(() =>
             {
-                ConnectionCredentials credentials = new ConnectionCredentials(cfg.Default.TwitchUsername, cfg.Default.TwitchAccessToken);
+                var key = new List<byte>(cfg.Default.TwitchUsername.GetBytes());
+                key.AddRange(new byte[] { 7, 12, 20, 18 });
+
+                var base64 = Convert.FromBase64String(cfg.Default.TwitchAccessToken);
+                var decrypto = Crypt.Unprotect(key.ToArray(), base64);
+                string accesstoken = Encoding.Unicode.GetString(decrypto);
+                accesstoken = accesstoken.Substring(0, accesstoken.Length - 1);
+
+                ConnectionCredentials credentials = new ConnectionCredentials(cfg.Default.TwitchUsername, accesstoken);
 
                 var clientOptions = new ClientOptions
                 {

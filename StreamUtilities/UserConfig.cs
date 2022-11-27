@@ -71,6 +71,7 @@ namespace StreamUtilities
                 var crypto = Convert.FromBase64String(cfg.TwitchAccessToken);
                 var accesstoken = Crypt.Unprotect(key.ToArray(), crypto);
                 TwitchAccessToken = Encoding.Unicode.GetString(accesstoken);
+                TwitchAccessToken = TwitchAccessToken.Substring(0, TwitchAccessToken.Length-1);
             }
             catch
             {
